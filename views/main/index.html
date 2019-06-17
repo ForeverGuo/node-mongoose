@@ -1,0 +1,41 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+    {% for content in contents %}
+    <a class="article_item" href="/view?contentid={{content.id}}" target="_blank">
+        <h1>{{content.title}}</h1>
+        <p class="colDefault">
+            作者：<span class="colInfo">{{content.user.username}}</span> -
+            时间：<span class="colInfo">{{content.addTime | date('Y-m-d H:i:s', -8*60)}}</span> -
+            阅读：<span class="colInfo">{{content.views}}</span> -
+            评论：<span class="colInfo">{{content.comments.length}}</span>
+        </p>
+        <div class="article_main">
+            <p class="article_content ellipsis_4">{{content.description}}</p>
+        </div>
+        <div class="article_tag">
+            <!-- <span>{{content.category.name}}</span>
+            <i>{{content.addTime | date('Y-m-d', -8*60)}}</i> -->
+            <span>阅读全文</span>
+        </div>
+    </a>
+    {% endfor %}
+
+    {% if pages > 0 %}
+    <div class="pagination">
+        {% if page<=1 %}
+            <span class="pagination_left">没有上一页了</span>
+        {% else %}
+            <a class="pagination_left" href="/?category={{category}}&page={{page-1}}">上一页</a>
+        {% endif %}
+            <strong>{{page}} / {{pages}}</strong>
+        {% if page>=pages %}
+            <span class="pagination_right">没有下一页了</span>
+        {% else %}
+            <a class="pagination_right" href="/?category={{category}}&page={{page+1}}">下一页</a>
+        {% endif %}
+    </div>
+    {% elseif count == 0 %}
+    <p class="noPageList">没有相关内容</p>
+    {% endif %}
+{%endblock%}

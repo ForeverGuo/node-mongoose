@@ -1,0 +1,46 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+    <div class="article_item">
+        <h1>{{content.title}}</h1>
+        <p class="colDefault">
+            作者：<span class="colInfo">{{content.user.username}}</span> -
+            时间：<span class="colInfo">{{content.addTime | date('Y-m-d H:i:s', -8*60)}}</span> -
+            阅读：<span class="colInfo">{{content.views}}</span> -
+            评论：<span class="colInfo">{{content.comments.length}}</span>
+        </p>
+        <div class="article_main">
+            <p class="article_content ellipsis_4">{{content.content}}</p>
+        </div>
+        <div class="article_tag">
+            <!-- <span>{{content.category.name}}</span>
+            <i>{{content.addTime | date('Y-m-d', -8*60)}}</i> -->
+        </div>
+    </div>
+    <div class="discuss article_item">
+        <div class="user_tab">
+            <span class="discuss_title">评论</span>
+            <span class="discuss_title"  style="float:right;">共有<i id="contentCount"></i>条</span>
+        </div>
+        <div class="discuss_main">
+            <div class="discuss_content">
+                <ul class="discuss_list">
+                    
+                </ul>
+                <div class="article_tag pager">
+                    <li class="pre"><a href="">上一页</a></li>
+                    <li></li>
+                    <li class="next"><a href="}">下一页</a></li>
+                </div>
+
+                {% if userInfo._id %}
+                <textarea class="discuss_input" name="" id="" cols="30" rows="10" placeholder="请在这写下评论～"></textarea>
+                <input class="discuss_id" type="hidden" value="{{content._id.toString()}}">
+                <p class="discuss_submit">提 交</p>
+                {% else %}
+                <p class="discuss_default">您还没有登录，请先登录～</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{%endblock%}
